@@ -1,0 +1,90 @@
+# ════════════════════════════════════════════════════════════════════
+# RENDER.YAML - CONFIGURACIÓN DE DEPLOYMENT EN RENDER
+# ════════════════════════════════════════════════════════════════════
+#
+# DESCRIPCIÓN:
+# Archivo de configuración Infrastructure as Code (IaC) para desplegar
+# automáticamente la API en Render.com
+#
+# USO:
+# 1. Subir este archivo a la raíz del repositorio
+# 2. Conectar repositorio en Render
+# 3. Render detectará y aplicará esta configuración automáticamente
+#
+# DOCUMENTACIÓN: https://render.com/docs/infrastructure-as-code
+#
+# ════════════════════════════════════════════════════════════════════
+
+services:
+  # ──────────────────────────────────────────────────────────────────
+  # Web Service: API Principal
+  # ──────────────────────────────────────────────────────────────────
+  - type: web
+    name: pneumonia-api
+    runtime: python
+    
+    # Plan (cambiar según necesidades)
+    plan: free  # Opciones: free, starter, standard, pro
+    
+    # Region (elegir más cercana a usuarios)
+    region: oregon  # Opciones: oregon, frankfurt, singapore
+    
+    # Branch a deployar
+    branch: main
+    
+    # Build y Start commands
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    
+    # Variables de entorno
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      
+      - key: TF_CPP_MIN_LOG_LEVEL
+        value: "2"  # Reducir logs de TensorFlow
+      
+      - key: TF_ENABLE_ONEDNN_OPTS
+        value: "1"  # Optimizaciones CPU
+    
+    # Health check endpoint
+    healthCheckPath: /health
+    
+    # Auto-deploy
+    autoDeploy: true  # Deploy automático en cada push
+    
+    # Configuración de recursos
+    disk:
+      name: models-disk
+      mountPath: /app/models
+      sizeGB: 1
+    
+    # Headers personalizados (opcional)
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+
+# ════════════════════════════════════════════════════════════════════
+# NOTAS:
+#
+# FREE TIER LIMITATIONS:
+# - 750 horas/mes de compute
+# - App "sleeps" después de 15 min de inactividad
+# - Wake-up time: ~30 segundos
+# - Suficiente para demos y proyectos pequeños
+#
+# UPGRADE A PAID PLAN SI:
+# - Necesitas que esté siempre activo
+# - Requieres más memoria/CPU
+# - Tienes alto tráfico
+#
+# ════════════════════════════════════════════════════════════════════
+```
+
+---
+

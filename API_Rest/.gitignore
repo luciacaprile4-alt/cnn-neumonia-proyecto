@@ -1,0 +1,135 @@
+### **ARCHIVO 8: `.gitignore` - Archivos a Ignorar en Git**
+```
+# ════════════════════════════════════════════════════════════════════
+# .GITIGNORE - ARCHIVOS A EXCLUIR DEL REPOSITORIO GIT
+# ════════════════════════════════════════════════════════════════════
+#
+# PROPÓSITO:
+# Evita subir archivos innecesarios, sensibles o muy grandes al repositorio
+#
+# ════════════════════════════════════════════════════════════════════
+
+# ──────────────────────────────────────────────────────────────────
+# Python
+# ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+
+# ──────────────────────────────────────────────────────────────────
+# Entornos virtuales
+# ──────────────────────────────────────────────────────────────────
+venv/
+env/
+ENV/
+pneumonia_env/
+.venv/
+
+# ──────────────────────────────────────────────────────────────────
+# Jupyter Notebooks
+# ──────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ──────────────────────────────────────────────────────────────────
+# IDEs
+# ──────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ──────────────────────────────────────────────────────────────────
+# Modelos entrenados (GRANDES - no subir a Git)
+# ──────────────────────────────────────────────────────────────────
+# Opción 1: Ignorar todos los modelos
+# models/*.keras
+# models/*.h5
+
+# Opción 2: Subir modelos pequeños, ignorar grandes
+models/*_final.keras
+models/baseline*.keras
+
+# RECOMENDACIÓN: Usar Git LFS para modelos grandes
+# O subir modelos a servicio externo (Google Drive, Hugging Face Hub)
+
+# ──────────────────────────────────────────────────────────────────
+# Dataset (MUY GRANDE - nunca subir)
+# ──────────────────────────────────────────────────────────────────
+chest_xray/
+chest_xray_balanced/
+*.zip
+test_images/
+
+# ──────────────────────────────────────────────────────────────────
+# Imágenes individuales
+# ──────────────────────────────────────────────────────────────────
+*.jpeg
+*.jpg
+*.png
+*.gif
+*.bmp
+
+# ──────────────────────────────────────────────────────────────────
+# Logs y archivos temporales
+# ──────────────────────────────────────────────────────────────────
+*.log
+logs/
+tmp/
+temp/
+
+# ──────────────────────────────────────────────────────────────────
+# Variables de entorno y secretos (NUNCA SUBIR)
+# ──────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+kaggle.json
+
+# ──────────────────────────────────────────────────────────────────
+# Resultados y gráficas
+# ──────────────────────────────────────────────────────────────────
+*.png
+*.pdf
+results/
+plots/
+
+# ──────────────────────────────────────────────────────────────────
+# Sistema operativo
+# ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ════════════════════════════════════════════════════════════════════
+# IMPORTANTE: 
+#
+# SI SUBES MODELOS A GIT:
+# - Úsalos solo si son <100 MB
+# - Considera usar Git LFS para archivos grandes
+# - Alternativa: Subir a Hugging Face Hub o Google Drive
+#
+# PARA DEPLOYMENT:
+# - Render/Railway detectan archivos grandes automáticamente
+# - Considera usar servicios de storage externos
+#
+# ════════════════════════════════════════════════════════════════════
